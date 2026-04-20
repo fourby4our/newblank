@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-soft">
-      <div className="max-w-7xl mx-auto px-12 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="text-2xl font-black italic tracking-tighter">fourby4our</div>
         </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-dark border-b border-soft px-12 py-8 flex flex-col gap-6"
+            className="md:hidden bg-dark border-b border-soft px-6 py-8 flex flex-col gap-6"
           >
             <a href="#services" className="nav-link" onClick={() => setIsOpen(false)}>Services</a>
             <a href="#pricing" className="nav-link" onClick={() => setIsOpen(false)}>Pricing</a>
@@ -123,7 +123,7 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
         className="w-full py-8 flex items-center justify-between text-left group"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="font-bold text-xl uppercase tracking-tighter group-hover:text-zinc-400 transition-colors">{question}</span>
+        <span className="font-bold text-lg md:text-xl uppercase tracking-tighter group-hover:text-zinc-400 transition-colors pr-6">{question}</span>
         <ChevronDown className={`transition-transform duration-300 text-zinc-600 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <motion.div 
@@ -148,16 +148,16 @@ const RoyaltyCalculator = () => {
   const avgEarnings = platforms.reduce((acc, p) => acc + (streams * p.rate), 0) / platforms.length;
 
   return (
-    <section className="py-40 px-12 relative overflow-hidden">
+    <section className="py-24 md:py-40 px-6 md:px-12 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-brand/5 blur-[120px] rounded-full -z-10" />
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-7xl font-black uppercase tracking-tighter leading-none mb-8 italic">CALCULATE<br /><span className="text-zinc-600 not-italic">YOUR IMPACT</span></h2>
+            <h2 className="text-[clamp(40px,9vw,80px)] font-black uppercase tracking-tighter leading-[0.9] mb-8 italic">CALCULATE<br /><span className="text-zinc-600 not-italic">YOUR IMPACT</span></h2>
             <p className="text-zinc-400 text-lg max-w-md mb-12">Estimate your global reach and earnings across major streaming platforms. Direct, transparent, and accurate.</p>
             
             <div className="space-y-8">
@@ -177,7 +177,7 @@ const RoyaltyCalculator = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {platforms.map((p) => (
                   <div key={p.name} className="glass-panel p-6">
                     <div className="flex items-center gap-3 mb-4">
@@ -197,7 +197,7 @@ const RoyaltyCalculator = () => {
             viewport={{ once: true }}
             className="relative h-full flex flex-col justify-center"
           >
-            <div className="glass-panel p-16 rounded-[40px] border-white/20 glow-white animate-float relative overflow-hidden">
+            <div className="glass-panel p-8 md:p-16 rounded-[40px] border-white/20 glow-white animate-float relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8">
                 <Music className="text-white/10" size={120} />
               </div>
@@ -207,7 +207,7 @@ const RoyaltyCalculator = () => {
                   key={avgEarnings}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-[120px] font-black leading-none tracking-tighter italic"
+                  className="text-[clamp(48px,11vw,120px)] font-black leading-none tracking-tighter italic block w-full truncate"
                 >
                   ₹{avgEarnings.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                 </motion.span>
@@ -253,7 +253,7 @@ export default function App() {
   return (
     <div 
       onMouseMove={handleMouseMove}
-      className="min-h-screen selection:bg-white selection:text-black bg-dark cursor-default"
+      className="min-h-screen selection:bg-white selection:text-black bg-dark cursor-default overflow-x-hidden"
     >
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
@@ -274,7 +274,7 @@ export default function App() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-48 pb-32 px-12 relative overflow-hidden">
+      <section className="pt-32 md:pt-48 pb-20 md:pb-32 px-6 md:px-12 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -341,18 +341,18 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="mt-16 flex flex-wrap gap-6"
+                className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 md:gap-6"
               >
-                <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-zinc-200 transition-all flex items-center gap-4 hover:scale-105 active:scale-95 glow-white">
+                <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-8 md:px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-zinc-200 transition-all flex items-center justify-center gap-4 hover:scale-105 active:scale-95 glow-white">
                   Release Your Music <ArrowRight size={16} />
                 </a>
-                <button className="border border-white text-white px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-white/5 transition-all active:scale-95">
+                <button className="border border-white text-white px-8 md:px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-white/5 transition-all active:scale-95 w-full sm:w-auto">
                   Our Pricing
                 </button>
               </motion.div>
             </div>
 
-            <div className="lg:col-span-3 flex flex-col justify-end gap-12 pb-4">
+            <div className="lg:col-span-3 flex flex-col justify-end gap-8 md:gap-12 pb-4 mt-12 lg:mt-0">
               <motion.div 
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -405,17 +405,17 @@ export default function App() {
       <RoyaltyCalculator />
 
       {/* Why Section */}
-      <section className="py-40 px-12 relative">
+      <section className="py-24 md:py-40 px-6 md:px-12 relative">
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-soft" />
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-24 items-start mb-32">
+          <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-start mb-20 md:mb-32">
             <motion.div
                initial={{ opacity: 0, y: 30 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
             >
               <p className="micro-caps mb-6 text-brand font-bold tracking-[0.3em]">Excellence</p>
-              <h2 className="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-10 italic">
+              <h2 className="text-[clamp(36px,8vw,64px)] font-black uppercase tracking-tighter leading-[0.9] mb-8 md:mb-10 italic">
                 CRAFTED FOR THE<br />
                 <span className="text-zinc-600 not-italic">INDEPENDENT</span>
               </h2>
@@ -427,7 +427,7 @@ export default function App() {
                initial={{ opacity: 0, scale: 0.95 }}
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
-               className="grid grid-cols-2 lg:grid-cols-2 gap-px bg-soft border border-soft"
+               className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-soft border border-soft"
             >
               <ServiceItem icon={Mic2} label="CallerTune" />
               <ServiceItem icon={CheckCircle} label="Artist Channel" />
@@ -441,7 +441,7 @@ export default function App() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-40 px-12 bg-white/[0.01]">
+      <section id="pricing" className="py-24 md:py-40 px-6 md:px-12 bg-white/[0.01]">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -450,7 +450,7 @@ export default function App() {
             className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-12"
           >
             <div>
-              <h2 className="text-7xl font-black uppercase tracking-tighter leading-none mb-6 italic">INVEST IN<br />YOUR SOUND</h2>
+              <h2 className="text-[clamp(40px,9vw,80px)] font-black uppercase tracking-tighter leading-[0.9] mb-6 italic">INVEST IN<br />YOUR SOUND</h2>
               <p className="text-zinc-500 uppercase text-[11px] tracking-[0.3em]">Flexible plans for every trajectory.</p>
             </div>
             <div className="hidden md:block text-right">
@@ -486,7 +486,7 @@ export default function App() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-40 px-12 bg-dark">
+      <section id="faq" className="py-24 md:py-40 px-6 md:px-12 bg-dark">
         <div className="max-w-4xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -494,7 +494,7 @@ export default function App() {
             viewport={{ once: true }}
             className="text-center mb-24"
           >
-            <h2 className="text-6xl font-black italic uppercase tracking-tighter mb-4 leading-none">THE PROTOCOL</h2>
+            <h2 className="text-[clamp(36px,8vw,64px)] font-black italic uppercase tracking-tighter mb-4 leading-none">THE PROTOCOL</h2>
             <p className="micro-caps">Commonly Asked Questions</p>
           </motion.div>
           <motion.div 
@@ -524,15 +524,15 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-32 px-12 border-t border-soft">
+      <footer className="py-20 md:py-32 px-6 md:px-12 border-t border-soft">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-20 mb-32">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-20 mb-20 md:mb-32">
             <div className="md:col-span-6">
               <div className="text-4xl font-black italic tracking-tighter mb-8">fourby4our</div>
               <p className="text-zinc-500 max-w-sm text-sm leading-relaxed mb-10">
                 Architecting the future of independent distribution. Built with precision for the modern creator economy.
               </p>
-              <div className="flex gap-8">
+              <div className="flex flex-wrap gap-6 md:gap-8">
                 <a href="https://instagram.com/fourby4our" target="_blank" rel="noopener noreferrer" className="nav-link">Instagram</a>
                 <a href="#" className="nav-link">WhatsApp</a>
                 <a href="mailto:contact@fourby4our.in" className="nav-link">Contact</a>
@@ -557,7 +557,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between pt-12 border-t border-soft text-zinc-600 text-[10px] uppercase font-bold tracking-widest">
+          <div className="flex flex-col md:flex-row items-center justify-between pt-12 border-t border-soft text-zinc-600 text-[10px] uppercase font-bold tracking-widest gap-4 md:gap-0">
             <p>© 2026 fourby4our. all rights reserved.</p>
             <p>HQ • Bangalore, India</p>
           </div>
