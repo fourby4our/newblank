@@ -21,24 +21,27 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-soft">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="text-2xl font-black italic tracking-tighter">fourby4our</div>
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 bg-black/60 backdrop-blur-md border border-white/5 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.5)] transform-gpu">
+      <div className="px-8 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-2 relative z-10">
+          <div className="text-xl font-black italic tracking-[0.05em] text-white/90">fourby4our.</div>
         </div>
         
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          <a href="#services" className="nav-link text-white font-bold">Services</a>
-          <a href="#pricing" className="nav-link">Pricing</a>
-          <a href="#faq" className="nav-link">FAQ</a>
-          <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white text-black text-[11px] font-bold uppercase tracking-widest px-8 py-2.5 rounded-full hover:bg-zinc-200 transition-all inline-block">
+        <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+          <a href="#services" className="nav-link !text-[10px]">Services</a>
+          <a href="#pricing" className="nav-link !text-[10px]">Pricing</a>
+          <a href="#faq" className="nav-link !text-[10px]">FAQ</a>
+        </div>
+        
+        <div className="hidden md:flex relative z-10">
+          <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white/10 text-white text-[10px] font-bold uppercase tracking-[0.1em] px-6 py-2 rounded-full hover:bg-white hover:text-black transition-all duration-300">
             Get Started
           </a>
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-zinc-400 hover:text-white transition-colors" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -50,7 +53,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-dark border-b border-soft px-6 py-8 flex flex-col gap-6"
+            className="md:hidden absolute top-20 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-md border border-white/5 rounded-3xl p-8 flex flex-col gap-6 shadow-2xl transform-gpu"
           >
             <a href="#services" className="nav-link" onClick={() => setIsOpen(false)}>Services</a>
             <a href="#pricing" className="nav-link" onClick={() => setIsOpen(false)}>Pricing</a>
@@ -87,32 +90,34 @@ const ServiceItem = ({ icon: Icon, label }: { icon: any, label: string }) => (
 );
 
 const PlanCard = ({ title, price, features, featured = false }: { title: string, price: string, features: string[], featured?: boolean }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className={`p-10 border ${featured ? 'border-white bg-white/5' : 'border-soft'} flex flex-col`}
-  >
-    <div className="flex justify-between items-start mb-6">
-      <h4 className="micro-caps">{title}</h4>
-      {featured && <span className="text-[9px] font-bold px-2 py-0.5 border border-white uppercase tracking-tighter">Recommended</span>}
-    </div>
-    <div className="flex items-baseline gap-1 mb-8">
-      <span className="text-4xl font-mono">{price}</span>
-      <span className="text-zinc-500 text-[10px] uppercase tracking-widest leading-none">/ Release</span>
-    </div>
-    <ul className="space-y-4 mb-10 flex-1">
-      {features.map((f, i) => (
-        <li key={i} className="flex items-center gap-3 text-[11px] uppercase tracking-wider text-zinc-400">
-          <div className="w-1 h-1 bg-white/30 rounded-full" />
-          {f}
-        </li>
-      ))}
-    </ul>
-    <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className={`w-full py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-all text-center block ${featured ? 'bg-white text-black hover:bg-zinc-200' : 'bg-transparent border border-white text-white hover:bg-white/5'}`}>
-      Choose Plan
-    </a>
-  </motion.div>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className={`relative rounded-2xl ${featured ? 'animated-border glow-brand' : 'border border-soft'} bg-dark flex flex-col p-px transform-gpu`}
+    >
+      <div className={`p-10 h-full flex flex-col bg-dark/90 backdrop-blur-md rounded-2xl ${featured ? '' : ''}`}>
+        <div className="flex justify-between items-start mb-6">
+          <h4 className="micro-caps">{title}</h4>
+          {featured && <span className="text-[10px] font-bold px-3 py-1 bg-brand/10 text-brand rounded-full uppercase tracking-tighter border border-brand/20">Recommended</span>}
+        </div>
+        <div className="flex items-baseline gap-1 mb-8">
+          <span className="text-4xl font-black font-mono tracking-tighter">{price}</span>
+          <span className="text-zinc-500 text-[10px] uppercase tracking-widest leading-none">/ Release</span>
+        </div>
+        <ul className="space-y-4 mb-10 flex-1">
+          {features.map((f, i) => (
+            <li key={i} className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-zinc-400 font-medium font-mono">
+              <div className={`w-1.5 h-1.5 ${featured ? 'bg-brand' : 'bg-white/30'} rounded-sm`} />
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className={`w-full py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-all text-center block rounded-xl ${featured ? 'bg-brand text-black hover:bg-orange-500 shadow-lg shadow-brand/20' : 'bg-transparent border border-white/20 text-white hover:bg-white/5'}`}>
+          Choose Plan
+        </a>
+      </div>
+    </motion.div>
 );
 
 const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
@@ -157,7 +162,7 @@ const RoyaltyCalculator = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-[clamp(40px,9vw,80px)] font-black uppercase tracking-tighter leading-[0.9] mb-8 italic">CALCULATE<br /><span className="text-zinc-600 not-italic">YOUR IMPACT</span></h2>
+            <h2 className="text-[clamp(40px,9vw,80px)] font-black uppercase tracking-tighter leading-[0.9] mb-8 italic">CALCULATE<br /><span className="text-outline not-italic">YOUR IMPACT</span></h2>
             <p className="text-zinc-400 text-lg max-w-md mb-12">Estimate your global reach and earnings across major streaming platforms. Direct, transparent, and accurate.</p>
             
             <div className="space-y-8">
@@ -256,18 +261,16 @@ export default function App() {
       className="min-h-screen selection:bg-white selection:text-black bg-dark cursor-default overflow-x-hidden"
     >
       {/* Background Decor */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden bg-[#030303]">
+        <div className="absolute inset-0 bg-dot-pattern opacity-10 select-none transform-gpu" />
+        <div className="absolute inset-0 scanline opacity-[0.10] transform-gpu" />
         <motion.div 
           style={{ x: blobX, y: blobY }}
-          className="absolute -top-40 -left-10 w-[800px] h-[800px] bg-zinc-800 rounded-full blur-[140px] opacity-20"
+          className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-[#1a1a1a] rounded-full blur-[100px] opacity-30 transform-gpu"
         ></motion.div>
         <motion.div 
-          style={{ x: useTransform(blobX, v => v * -1.2), y: useTransform(blobY, v => v * -1.2) }}
-          className="absolute bottom-20 right-20 w-[600px] h-[600px] bg-zinc-900 rounded-full blur-[160px] opacity-10"
-        ></motion.div>
-        <motion.div 
-          style={{ x: useTransform(blobX, v => v * 0.8), y: useTransform(blobY, v => v * 0.8) }}
-          className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-brand/5 rounded-full blur-[120px] opacity-10"
+          style={{ x: useTransform(blobX, v => v * -1.5), y: useTransform(blobY, v => v * -1.5) }}
+          className="absolute bottom-0 right-0 w-[80%] h-[80%] bg-brand/5 rounded-full blur-[120px] opacity-30 transform-gpu"
         ></motion.div>
       </div>
 
@@ -282,46 +285,46 @@ export default function App() {
             transition={{ duration: 0.8 }}
             className="grid lg:grid-cols-12 gap-16"
           >
-            <div className="lg:col-span-9">
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="micro-caps mb-6"
+            <div className="lg:col-span-9 relative z-10">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.05] bg-white/[0.02] backdrop-blur-md mb-10 shadow-xl"
               >
-                The New Standard for Independent Artists
-              </motion.p>
-              <h1 className="text-display mb-12 select-none">
-                <motion.span
+                <div className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                <span className="micro-caps tracking-[0.25em] text-zinc-400">The New Standard</span>
+              </motion.div>
+              <div className="mb-14 select-none relative -ml-1 md:-ml-2">
+                <motion.div
                   style={{ x: titleX1, y: titleY1 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="inline-block"
+                  transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-display block text-gradient drop-shadow-2xl"
                 >
                   DISTRIBUTE
-                </motion.span>
-                <br />
-                <motion.span
+                </motion.div>
+                <motion.div
                   style={{ x: titleX2, y: titleY2 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-italic-zinc inline-block"
+                  transition={{ delay: 0.4, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-display block text-brand-gradient flex items-center gap-4 md:gap-8"
                 >
-                  BEYOND
-                </motion.span>{" "}
-                <motion.span
+                  BEYOND <div className="h-2 w-24 md:h-3 md:w-48 bg-brand/30 rounded-full" />
+                </motion.div>
+                <motion.div
                   style={{ x: titleX1, y: titleY1 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="inline-block"
+                  transition={{ delay: 0.5, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-display block text-outline opacity-60 ml-[5%]"
                 >
                   LIMITS
-                </motion.span>
-              </h1>
-              <div className="flex flex-col md:flex-row gap-12 items-start md:items-center">
+                </motion.div>
+              </div>
+              <div className="flex flex-col md:flex-row gap-8 items-start md:items-center relative z-20">
                 <motion.div 
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -331,8 +334,8 @@ export default function App() {
                 <motion.p 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                  className="text-xl font-light text-zinc-400 max-w-lg leading-relaxed"
+                  transition={{ delay: 0.7, duration: 1 }}
+                  className="text-xl md:text-2xl font-light text-zinc-400 max-w-lg leading-relaxed"
                 >
                   Keep <span className="text-white font-medium">100% of your earnings</span>. Reach 150+ digital platforms. Real-time royalty tracking for the modern era.
                 </motion.p>
@@ -340,13 +343,13 @@ export default function App() {
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 md:gap-6"
+                transition={{ delay: 0.8, duration: 1 }}
+                className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 md:gap-6 relative z-20"
               >
-                <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-8 md:px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-zinc-200 transition-all flex items-center justify-center gap-4 hover:scale-105 active:scale-95 glow-white">
-                  Release Your Music <ArrowRight size={16} />
+                <a href="https://app.fourby4our.in" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-8 md:px-10 py-5 text-[10px] font-extrabold uppercase tracking-[0.25em] rounded-full hover:bg-zinc-200 transition-all flex items-center justify-center gap-4 hover:scale-[1.02] active:scale-[0.98] glow-white shadow-2xl">
+                  Release Your Music <ArrowRight size={16} className="text-brand" />
                 </a>
-                <button className="border border-white text-white px-8 md:px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full hover:bg-white/5 transition-all active:scale-95 w-full sm:w-auto">
+                <button className="border border-white/10 bg-white/[0.03] backdrop-blur-md text-white px-8 md:px-10 py-5 text-[10px] font-extrabold uppercase tracking-[0.25em] rounded-full hover:bg-white/10 hover:border-white/20 transition-all active:scale-[0.98] w-full sm:w-auto shadow-2xl">
                   Our Pricing
                 </button>
               </motion.div>
@@ -354,59 +357,106 @@ export default function App() {
 
             <div className="lg:col-span-3 flex flex-col justify-end gap-8 md:gap-12 pb-4 mt-12 lg:mt-0">
               <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.9 }}
-                className="border-l-2 border-white/10 pl-8"
+                initial={{ opacity: 0, x: 20, rotate: 5 }}
+                animate={{ opacity: 1, x: 0, rotate: 0 }}
+                transition={{ delay: 0.9, type: "spring", damping: 15 }}
+                className="bg-white/[0.02] border border-white/[0.05] p-6 rounded-3xl backdrop-blur-xl shadow-2xl"
               >
-                <h4 className="micro-caps">Global Reach</h4>
-                <p className="text-4xl font-mono mt-3">150+</p>
-                <p className="text-[10px] text-zinc-500 uppercase mt-2 tracking-widest">Digital Platforms</p>
+                <h4 className="micro-caps">Global Scale</h4>
+                <p className="text-5xl font-mono mt-4 font-black">150<span className="text-brand">+</span></p>
+                <p className="text-[9px] text-zinc-500 uppercase mt-2 tracking-[0.2em]">Platforms Reached</p>
               </motion.div>
               <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.0 }}
-                className="border-l-2 border-white/10 pl-8"
+                initial={{ opacity: 0, x: 20, rotate: -5 }}
+                animate={{ opacity: 1, x: 0, rotate: 0 }}
+                transition={{ delay: 1.0, type: "spring", damping: 15 }}
+                className="bg-brand/10 border border-brand/20 p-6 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden"
               >
-                <h4 className="micro-caps">Royalties Paid</h4>
-                <p className="text-4xl font-mono mt-3">100%</p>
-                <p className="text-[10px] text-zinc-500 uppercase mt-2 tracking-widest">To Every Artist</p>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-brand blur-3xl opacity-30" />
+                <h4 className="micro-caps text-brand">Royalties</h4>
+                <p className="text-5xl font-mono mt-4 font-black text-white">100<span className="text-brand">%</span></p>
+                <p className="text-[9px] text-zinc-500 uppercase mt-2 tracking-[0.2em]">Always Yours</p>
               </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Grid Features */}
-      <section className="border-y border-soft grid md:grid-cols-4 bg-white/[0.02]">
-        <FeatureCard 
-          index="01" 
-          title="Streaming" 
-          description="Direct path to Spotify, Apple Music, and Amazon without middlemen."
-        />
-        <FeatureCard 
-          index="02" 
-          title="Financials" 
-          description="Detailed analytics and real-time royalty statements at your fingertips."
-        />
-        <FeatureCard 
-          index="03" 
-          title="Ownership" 
-          description="Maintain full control of your masters and publishing rights indefinitely."
-        />
-        <FeatureCard 
-          index="04" 
-          title="Marketing" 
-          description="Built-in tools for pre-save links and social collaborative promotion."
-        />
+      {/* Bento Grid Features */}
+      <section className="py-20 md:py-40 px-6 md:px-12 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            {/* Feature 1: Large Span */}
+            <motion.div 
+              whileHover={{ scale: 0.98 }}
+              className="md:col-span-8 p-12 lg:p-16 flex flex-col justify-between premium-card min-h-[450px] group transition-all duration-500"
+            >
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full group-hover:bg-brand/10 transition-all duration-1000 -z-10" />
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-3 rounded-full bg-white/[0.03] border border-white/5 text-zinc-400 group-hover:text-brand transition-colors duration-500">
+                   <Globe size={20} />
+                </div>
+                <span className="micro-caps text-zinc-500">01 // Streaming</span>
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Global <span className="text-outline">Scale</span></h3>
+                <p className="text-zinc-400 text-lg md:text-xl max-w-lg leading-relaxed font-light">Direct path to Spotify, Apple Music, and Amazon without middlemen. Experience zero-latency distribution that reaches ears worldwide.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 2: High block */}
+            <motion.div 
+               whileHover={{ scale: 0.98 }}
+               className="md:col-span-4 p-10 flex flex-col justify-between premium-card group transition-all duration-500"
+            >
+              <div className="flex items-center gap-4 mb-8 text-zinc-500 group-hover:text-white transition-colors duration-500">
+                <Zap size={24} />
+                <span className="micro-caps">02 // Analytics</span>
+              </div>
+              <div className="space-y-4 relative z-10">
+                <h3 className="text-3xl font-black uppercase tracking-tighter">Real-Time<br/>Data</h3>
+                <p className="text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500 text-sm">Detailed analytics and real-time royalty statements streamed directly to your pocket. Nothing hidden.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 3: Bottom Left */}
+            <motion.div 
+               whileHover={{ scale: 0.98 }}
+               className="md:col-span-5 p-10 flex flex-col justify-between premium-card min-h-[350px] group transition-all duration-500"
+            >
+               <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 blur-[60px] rounded-full group-hover:bg-white/10 transition-all duration-700 -z-10" />
+               <div className="flex items-center gap-4 mb-8 text-zinc-500 group-hover:text-white transition-colors duration-500">
+                <Shield size={24} />
+                <span className="micro-caps">03 // Legal</span>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-3xl font-black uppercase tracking-tighter text-zinc-400 group-hover:text-white transition-colors duration-500">Total Ownership</h3>
+                <p className="text-zinc-500 text-base font-light">Maintain full control of your masters and publishing rights indefinitely. Your art remains yours.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 4: Bottom Right */}
+            <motion.div 
+               whileHover={{ scale: 0.98 }}
+               className="md:col-span-7 p-12 flex flex-col justify-between premium-card min-h-[350px] group transition-all duration-500"
+            >
+               <div className="flex items-center gap-4 mb-8 text-zinc-500 group-hover:text-white transition-colors duration-500">
+                <Instagram size={24} />
+                <span className="micro-caps">04 // Marketing</span>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-brand-gradient">Collaborative Growth</h3>
+                <p className="text-zinc-500 text-lg font-light max-w-sm">Built-in tools for pre-save links, social mapping, and collaborative multi-platform promotion campaigns.</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       <RoyaltyCalculator />
 
       {/* Why Section */}
       <section className="py-24 md:py-40 px-6 md:px-12 relative">
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-soft" />
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-start mb-20 md:mb-32">
             <motion.div
@@ -414,12 +464,12 @@ export default function App() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
             >
-              <p className="micro-caps mb-6 text-brand font-bold tracking-[0.3em]">Excellence</p>
-              <h2 className="text-[clamp(36px,8vw,64px)] font-black uppercase tracking-tighter leading-[0.9] mb-8 md:mb-10 italic">
+              <p className="micro-caps mb-8 text-brand font-bold tracking-[0.3em]">Excellence</p>
+              <h2 className="text-[clamp(44px,8vw,72px)] font-black uppercase tracking-tighter leading-[0.85] mb-8 md:mb-12">
                 CRAFTED FOR THE<br />
-                <span className="text-zinc-600 not-italic">INDEPENDENT</span>
+                <span className="text-outline italic">INDEPENDENT</span>
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
+              <p className="text-zinc-400 text-xl font-light leading-relaxed max-w-md">
                 We believe distribution should be invisible. Powerful enough to handle global scale, yet simple enough for a bedroom producer.
               </p>
             </motion.div>
@@ -427,14 +477,32 @@ export default function App() {
                initial={{ opacity: 0, scale: 0.95 }}
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
-               className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-soft border border-soft"
+               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
-              <ServiceItem icon={Mic2} label="CallerTune" />
-              <ServiceItem icon={CheckCircle} label="Artist Channel" />
-              <ServiceItem icon={Instagram} label="Profile Linking" />
-              <ServiceItem icon={Mail} label="Priority Support" />
-              <ServiceItem icon={Globe} label="Smart Links" />
-              <ServiceItem icon={Shield} label="Content ID" />
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-brand/10 border border-brand/20 rounded-xl text-brand"><Mic2 size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">CallerTune</span>
+              </div>
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-zinc-400"><CheckCircle size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">Artist Channel</span>
+              </div>
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-zinc-400"><Instagram size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">Profile Linking</span>
+              </div>
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-zinc-400"><Mail size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">Priority Support</span>
+              </div>
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-zinc-400"><Globe size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">Smart Links</span>
+              </div>
+              <div className="premium-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+                <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-zinc-400"><Shield size={24} /></div>
+                <span className="font-mono text-sm font-bold uppercase tracking-tight text-white/80">Content ID</span>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -459,7 +527,7 @@ export default function App() {
             </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-soft border border-soft">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
             <PlanCard 
               title="Single" 
               price="₹249" 
@@ -557,9 +625,8 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between pt-12 border-t border-soft text-zinc-600 text-[10px] uppercase font-bold tracking-widest gap-4 md:gap-0">
+          <div className="flex flex-col md:flex-row items-center justify-center pt-12 border-t border-soft text-zinc-600 text-[10px] uppercase font-bold tracking-widest">
             <p>© 2026 fourby4our. all rights reserved.</p>
-            <p>HQ • Bangalore, India</p>
           </div>
         </div>
       </footer>

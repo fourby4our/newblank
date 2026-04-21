@@ -1,31 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
   --color-brand: #F27D26;
-  --color-dark: #050505;
+  --color-brand-glow: rgba(242, 125, 38, 0.4);
+  --color-dark: #000000;
   --color-surface: #0a0a0a;
-  --color-soft: rgba(255, 255, 255, 0.1);
+  --color-soft: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {
   body {
-    @apply bg-dark text-white font-sans antialiased;
+    @apply bg-dark text-white font-sans antialiased overflow-x-hidden selection:bg-brand selection:text-white;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
   }
 }
 
 .text-display {
-  @apply text-[clamp(60px,12vw,130px)] leading-[0.85] tracking-[-0.05em] font-black uppercase;
+  @apply text-[clamp(50px,11vw,140px)] leading-[0.85] tracking-[-0.04em] font-black uppercase;
+}
+
+.text-outline {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+}
+
+.text-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #71717A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, #FFB075 0%, #F27D26 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-noise {
+  /* Removed expensive SVG fractal noise filter - causes severe GPU lag */
+}
+
+.premium-card {
+  @apply bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.04] backdrop-blur-md shadow-[0_8px_32px_0_rgba(0,0,0,0.8)] rounded-3xl overflow-hidden transform-gpu;
 }
 
 .micro-caps {
-  @apply text-[11px] uppercase tracking-[0.2em] text-white/50 font-semibold;
+  @apply text-[11px] uppercase tracking-[0.25em] font-mono text-zinc-500 font-medium;
 }
 
 .nav-link {
-  @apply text-[13px] uppercase tracking-[0.1em] text-white/70 hover:text-white transition-colors;
+  @apply text-[12px] uppercase tracking-[0.15em] font-semibold text-zinc-400 hover:text-white transition-colors relative after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-[1px] after:bg-white after:origin-right after:scale-x-0 hover:after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-500 ease-out;
 }
 
 .border-soft {
@@ -33,30 +64,82 @@
 }
 
 .glow-brand {
-  box-shadow: 0 0 40px -10px var(--color-brand);
+  box-shadow: 0 0 60px -15px var(--color-brand-glow);
 }
 
 .glow-white {
-  box-shadow: 0 0 60px -20px rgba(255, 255, 255, 0.2);
-}
-
-.mask-fade {
-  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  box-shadow: 0 0 80px -20px rgba(255, 255, 255, 0.15);
 }
 
 .text-italic-zinc {
-  @apply text-zinc-600 italic;
+  @apply text-zinc-600 italic font-bold;
 }
 
 .glass-panel {
-  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10;
+  @apply bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md border border-white/[0.05] shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transform-gpu;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.scanline {
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.25) 51%);
+  background-size: 100% 4px;
+}
+
+/* Custom premium slider */
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  cursor: pointer;
+  margin-top: -10px;
+  box-shadow: 0 0 20px rgba(242, 125, 38, 0.8), inset 0 0 4px rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-25px) scale(1.02) rotate(1deg); }
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Conic gradient border animation for pricing */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.animated-border {
+  position: relative;
+}
+.animated-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.1) 40%, var(--color-brand) 50%, rgba(255,255,255,0.1) 60%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-slow 4s linear infinite;
+  z-index: -1;
 }
